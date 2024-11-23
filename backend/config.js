@@ -1,1 +1,1 @@
-export const JSW_SECRET = "anubhavsecret"
+export const JSW_SECRET = "anubhavsecret";
