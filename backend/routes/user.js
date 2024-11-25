@@ -42,7 +42,7 @@ router.post("/signup", async (req, res) => {
     },
     JSW_SECRET
   );
-
+  
   res.json({
     message: "User create string",
     token: token,
