@@ -3,6 +3,7 @@ import zod, { string } from "zod";
 import { Account, User } from "../db";
 import jwt from "jsonwebtoken";
 import { JSW_SECRET } from "../config";
+import { authMiddleware } from "../middlewares";
 export const router = express.Router();
 
 // signup and signin routes
@@ -50,5 +51,29 @@ router.post("/signup", async (req, res) => {
   res.json({
     message: "User created successfully",
     token: token,
+  });
+});
+
+const updateBody = zod.object({
+  password: zod.string().optional(),
+  firstName: zod.string().optional(),
+  lastName: zod.string().optional(),
+});
+
+router.put("/", authMiddleware, async (req, res) => {
+  const { success } = updateBody.safeParse(req.body);
+
+  if (!success) {
+    return res.status(411).json({
+      message: "Error while updating information",
+    });
+  }
+
+  await User.updateOne(req.body, {
+    id: req.userId,
+  });
+
+  res.json({
+    message: "Updated successfully",
   });
 });
