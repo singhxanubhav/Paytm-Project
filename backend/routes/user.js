@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { JSW_SECRET } from "../config";
 export const router = express.Router();
 
-router.post("signup");
+
 
 // signup and signin routes
 
@@ -48,3 +48,6 @@ router.post("/signup", async (req, res) => {
     token: token,
   });
 });
+
+
+router.put
