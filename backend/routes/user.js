@@ -1,15 +1,13 @@
 import express from "express";
 import zod, { string } from "zod";
-import { User } from "../db";
+import { Account, User } from "../db";
 import jwt from "jsonwebtoken";
 import { JSW_SECRET } from "../config";
 export const router = express.Router();
 
-
-
 // signup and signin routes
 
-const signupSchema = zod.object({
+const signupBody = zod.object({
   username: zod.string(),
   firstName: zod.string(),
   lastName: zod.string(),
@@ -17,37 +15,40 @@ const signupSchema = zod.object({
 });
 
 router.post("/signup", async (req, res) => {
-  const body = req.body;
-  const { success } = signupSchema.safeParse(req.body);
+  const { success } = signupBody.safeParse(req.body);
   if (!success) {
-    return res.json({
+    return res.status(411).json({
       message: "Email already taken / Incorrect inputs",
     });
   }
 
-  const user = User.findOne({
+  const existingUser = await User.findOne({
     username: req.body.username,
   });
 
-  if (user._id) {
-    return res.json({
-      message: "Email already taken / Incorrect inputs",
+  if (existingUser) {
+    return res.status(411).json({
+      message: "Email already taken/Incorrect inputs",
     });
   }
+  const user = await User.create({
+    username: req.body.username,
+    password: req.body.password,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  });
 
-  const dbUser = await User.create(body);
+  const userId = user._id;
+
   const token = jwt.sign(
     {
-      userId: dbUser._id,
+      userId,
     },
     JSW_SECRET
   );
-  
+
   res.json({
-    message: "User create string",
+    message: "User created successfully",
     token: token,
   });
 });
-
-
-router.put
