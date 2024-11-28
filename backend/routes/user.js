@@ -1,10 +1,10 @@
 import express from "express";
-import zod, { string } from "zod";
-import { Account, User } from "../db";
+import zod from "zod";
+import { User, Account } from "../db.js";
 import jwt from "jsonwebtoken";
-import { JSW_SECRET } from "../config";
-import { authMiddleware } from "../middlewares";
-export const router = express.Router();
+import JWT_SECRET from "../config.js";
+import { authMiddleware } from "../middlewares.js";
+const router = express.Router();
 
 // signup and signin routes
 
@@ -54,7 +54,7 @@ router.post("/signup", async (req, res) => {
     {
       userId,
     },
-    JSW_SECRET
+    JWT_SECRET
   );
 
   res.json({
@@ -152,3 +152,5 @@ router.get("/bulk", async (req, res) => {
     })),
   });
 });
+
+export default router;

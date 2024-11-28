@@ -1,1 +1,2 @@
-export const JSW_SECRET = "anubhavsecret";
+const JWT_SECRET = "anubhavsecret";
+export default JWT_SECRET
