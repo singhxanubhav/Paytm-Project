@@ -6,17 +6,22 @@ import mongoose from "mongoose";
 const router = express.Router();
 
 router.get("/balance", authMiddleware, async (req, res) => {
-  const account = await Account.findOne({
-    userId: req.userId,
-  });
+  const account = await Account.findOne({ userId: req.userId });
+
+  if (!account) {
+    return res.status(404).json({
+      message: "Account not found",
+    });
+  }
 
   res.json({
     balance: account.balance,
   });
 });
 
+
 router.post("/transfer", authMiddleware, async (req, res) => {
-  session = await mongoose.startSession();
+const  session = await mongoose.startSession();
 
   session.startTransaction();
   const { amount, to } = req.body;
