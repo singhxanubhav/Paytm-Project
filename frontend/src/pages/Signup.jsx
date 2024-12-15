@@ -21,10 +21,10 @@ export const Signup = () => {
         <SubHeading label={"Enter your infromation to create an account"} />
         <InputBox onChange={(e) => {
           setFirstName(e.target.value);
-        }} placeholder="Anubhav" label={"First Name"} />
+        }} placeholder="First Name" label={"First Name"} />
         <InputBox onChange={(e) => {
           setLastName(e.target.value);
-        }} placeholder="Singh" label={"Last Name"} />
+        }} placeholder="Last Name" label={"Last Name"} />
         <InputBox onChange={(e) => {
           setUsername(e.target.value);
         }} placeholder="Email address" label={"Email"} />
@@ -43,7 +43,7 @@ export const Signup = () => {
             navigate("/dashboard")
           }} label={"Sign up"} />
         </div>
-        <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
+        <BottomWarning label={"Already have an account?"} buttonText={"Login"} to={"/login"} />
       </div>
     </div>
   </div>
