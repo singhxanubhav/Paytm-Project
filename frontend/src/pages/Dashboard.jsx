@@ -10,7 +10,7 @@ export const Dashboard = () => {
     
     localStorage.removeItem("token");
 
-    /
+    
     navigate("/login");
   };
 

@@ -8,7 +8,7 @@ import {ProtectedRoute} from "./components/ProtectedRoute";
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
 
-  console.log("isAuthenticated: ", isAuthenticated);
+  // console.log("isAuthenticated: ", isAuthenticated);
 
   return (
     <BrowserRouter>
