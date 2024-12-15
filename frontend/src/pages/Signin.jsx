@@ -39,25 +39,26 @@ export const Signin = () => {
             <Button
               onClick={async () => {
                 try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
-        {
-          username,
-          password,
-        }
-      );
+                  const response = await axios.post(
+                    "http://localhost:3000/api/v1/user/signin",
+                    {
+                      username,
+                      password,
+                    }
+                  );
 
-      
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        navigate("/dashboard");  
-      } else {
-        setErrorMessage("Login failed!");
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      setErrorMessage("Login failed! Please Check email and password"); 
-    }
+                  if (response.data.token) {
+                    localStorage.setItem("token", response.data.token);
+                    navigate("/dashboard");
+                  } else {
+                    setErrorMessage("Login failed!");
+                  }
+                } catch (error) {
+                  console.error("Error during login:", error);
+                  setErrorMessage(
+                    "Login failed! Please Check email and password"
+                  );
+                }
               }}
               label={"Login"}
             />
