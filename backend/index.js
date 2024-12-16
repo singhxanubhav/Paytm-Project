@@ -8,7 +8,14 @@ const app = express();
 
 dotenv.config({});
 
-app.use(cors());
+const corsOptions = {
+  origin: "paytm-project-tinrrel2k-anubhav-singhs-projects-ff9a2d2d.vercel.app",  // Replace with the actual frontend domain
+  methods: "GET, POST",
+};
+
+app.use(cors(corsOptions));  // Add this line to your backend config
+
+// app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1", mainRoute);

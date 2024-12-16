@@ -13,6 +13,28 @@ export const Signin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "https://paytm-project-4r06.onrender.com/api/v1/user/signin",
+        {
+          username,
+          password,
+        }
+      );
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token); // Store token
+        navigate("/dashboard"); // Redirect to dashboard
+      } else {
+        setErrorMessage("Login failed! Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrorMessage("Login failed! Please check your email and password.");
+    }
+  };
+
   return (
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className="flex flex-col justify-center">
@@ -36,33 +58,7 @@ export const Signin = () => {
             label={"Password"}
           />
           <div className="pt-4">
-            <Button
-              onClick={async () => {
-                try {
-                  
-                  const response = await axios.post(
-                    "http://localhost:3000/api/v1/user/signin",
-                    {
-                      username,
-                      password,
-                    }
-                  );
-
-                  if (response.data.token) {
-                    localStorage.setItem("token", response.data.token);
-                    navigate("/dashboard");
-                  } else {
-                    setErrorMessage("Login failed!");
-                  }
-                } catch (error) {
-                  console.error("Error during login:", error);
-                  setErrorMessage(
-                    "Login failed! Please Check email and password"
-                  );
-                }
-              }}
-              label={"Login"}
-            />
+            <Button onClick={handleSubmit} label={"Login"} />
           </div>
           <BottomWarning
             label={"Don't have an account?"}

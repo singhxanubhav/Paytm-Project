@@ -8,12 +8,13 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  console.log(isAuthenticated);
 
   // Sync with localStorage whenever the token changes
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
-  }, []);
+  }, [localStorage.getItem("token")]); // Watch for changes in the token
 
   return (
     <BrowserRouter>
