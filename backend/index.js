@@ -9,7 +9,8 @@ const app = express();
 dotenv.config({});
 
 const corsOptions = {
-  origin: "https://paytm-project-4r06.onrender.com",
+  // origin: "https://paytm-project-4r06.onrender.com",
+  origin: "*",
     // Replace with the actual frontend domain
   methods: "GET, POST",
 };
