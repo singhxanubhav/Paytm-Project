@@ -9,7 +9,8 @@ const app = express();
 dotenv.config({});
 
 const corsOptions = {
-  origin: "paytm-project-tinrrel2k-anubhav-singhs-projects-ff9a2d2d.vercel.app",  // Replace with the actual frontend domain
+  origin: "https://paytm-project-4r06.onrender.com",
+    // Replace with the actual frontend domain
   methods: "GET, POST",
 };
 
