@@ -7,22 +7,25 @@ import { SendMoney } from "./pages/SendMoney";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
-  console.log(isAuthenticated);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Sync with localStorage whenever the token changes
+  // Check if token exists in localStorage and set authentication state
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
-  }, [localStorage.getItem("token")]); // Watch for changes in the token
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Signin />} />
+        <Route path="/" element={<Signin setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/login" element={<Signin setIsAuthenticated={setIsAuthenticated} />} />
 
         {/* Protected Routes */}
         <Route

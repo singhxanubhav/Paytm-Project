@@ -7,7 +7,7 @@ import { InputBox } from "../components/InputBox";
 import { SubHeading } from "../components/SubHeading";
 import { useNavigate } from "react-router-dom";
 
-export const Signin = () => {
+export const Signin = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,6 +25,7 @@ export const Signin = () => {
 
       if (response.data.token) {
         localStorage.setItem("token", response.data.token); // Store token
+        setIsAuthenticated(true); // Update authentication state after successful signup
         navigate("/dashboard"); // Redirect to dashboard
       } else {
         setErrorMessage("Login failed! Please check your credentials.");
