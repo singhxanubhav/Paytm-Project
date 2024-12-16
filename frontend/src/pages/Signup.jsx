@@ -33,13 +33,13 @@ export const Signup = () => {
         }} placeholder="Password" label={"Password"} />
         <div className="pt-4">
           <Button onClick={async () => {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/user/signup`, {
+            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
               username,
               firstName,
               lastName,
               password
             });
-            console.log(process.env.REACT_APP_API_URL);
+            
 
             localStorage.setItem("token", response.data.token)
             navigate("/dashboard")
